@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meta Tag Prompt generator</title>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.min.css" rel="stylesheet" />
+    <style>
+        *{
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="row p-3">
+    <div class="col col-6 shadow-5-strong m-4">
+        <div class="container">
+            <!-- Page Title  -->
+            <div class="row py-4 text-center">
+                <div class="col">
+                    <h2>ChatGPT URL Re-Writting Prompt Generator
+                        <hr>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form  -->
+        <div class="container">
+            <form id="promptForm">
+            <div class="row">
+                    <div class="col">
+                        <!-- Text input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="text" id="PageURL" class="form-control" />
+                            <label class="form-label" for="PageURL">Page URL</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Text input -->
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" value="new" />
+                            <label class="btn btn-secondary" for="option1" data-mdb-ripple-init>New Prompt</label>
+                        
+                            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="followUp" checked />
+                            <label class="btn btn-secondary" for="option2" data-mdb-ripple-init>Follow Up Prompt</label>
+                        
+                        </div>
+                    </div>
+            </div>
+
+                
+
+                <!-- Message input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <textarea class="form-control" id="ImagesURL" rows="4"></textarea>
+                    <label class="form-label" for="keywords" >Brand Keywords</label>
+                </div>
+
+                <!-- Message input -->
+                <div class="form-outline" data-mdb-input-init>
+                    <textarea type="text" id="pageContent" class="form-control" data-mdb-showcounter="true" maxlength="99999" rows="8"></textarea>
+                    <label class="form-label" for="form16">Website Content</label>
+                    <div class="form-helper"></div>
+                </div>
+    <br><br>
+
+                <!-- Submit button -->
+                <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4" id="Generate">Generate</button>
+            </form>
+        </div>
+        
+    </div>
+    <div class="col col-5 border-start shadow-5-strong m-2">
+
+        <div class="container">
+            <!-- Page Title  -->
+            <div class="row py-4 text-center">
+                <div class="col">
+                    <h2>Result
+                        <hr>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Message input -->
+            <div class="form-outline" data-mdb-input-init>
+                <textarea type="text" id="result" class="form-control" data-mdb-showcounter="true" maxlength="99999" rows="14"></textarea>
+                <label class="form-label" for="form16">Your Prompt</label>
+                <div class="form-helper"></div>
+            </div>
+            <br>
+            <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4 w-50" id="copy" onclick="myFunction()">Copy <span id="copyDone"></span></button>
+        </div>
+    </div>
+
+
+
+    <!-- MDB -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script>
+
+        <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+
+  <script> 
+    $("#Generate").click(function(){
+        var pageURL = $("#PageURL").val();
+        // var option = $("input[name=options]").val();
+        var selectedValue = $('input[name="options"]:checked').val();
+        var keywords = $("#keywords").val();
+        var pageContent = $("#pageContent").val();
+        var gen = 0;
+        if(selectedValue=="new"){
+            gen = `Context Provided:
+
+            Current Webpage URL: \"${pageURL}\"
+            Current Webpage Content: \"${pageContent}\"
+            Brand Keywords: \"${keywords}\"
+            Desired Outcome: Rephrase the current URL to make it SEO-friendly by incorporating relevant brand keywords. Additionally, update the canonical tag to match the suggested URL for consistency. The final output should be presented in a clear tabular format.
+            Steps to Rephrase the URL:
+
+            Analyze the Current URL:
+
+            Review the URL for readability, relevance, and optimization gaps.
+            Identify areas needing improvement, such as irrelevant terms, excessive length, or poor structure.
+            Keyword Integration:
+
+            Choose the most relevant keywords from the brand keyword list.
+            Seamlessly incorporate these keywords into the suggested URL while maintaining clarity and avoiding keyword stuffing.
+            Rephrased URL Guidelines:
+
+            Use concise and user-friendly formatting, ideally 50–60 characters long.
+            Apply SEO best practices:
+            Use lowercase letters only.
+            Replace spaces with hyphens (-).
+            Minimize stop words unless necessary.
+            Canonical Tag Update:
+
+            Update the canonical tag to match the suggested URL exactly.
+            Ensure it adheres to SEO guidelines and resolves any potential duplicate content issues.
+            Validation and Testing:
+
+            Test the updated URL for SEO effectiveness and content alignment.
+            Verify the canonical tag functions correctly and matches the updated URL.
+            Output Format:
+
+            Present the result in a table with the following columns:
+
+            Current URL	Suggested URL	Canonical Tag
+            Insert current URL	Insert rephrased URL	<link rel="canonical" href="Insert rephrased URL" />
+            Explanation:
+            Below the table, provide a brief justification for:
+
+            Changes made to the current URL.
+            How the suggested URL improves SEO.
+            The rationale behind the canonical tag update.`;
+        }
+        else {
+            gen = `do the same for these
+
+            Page URL: \"${pageURL}\"
+            Page Content Summary: \"${pageContent}\"
+            Keywords: Here’s the full list of relevant keywords for this page: [Provide updated list of keywords here]
+            Please analyze the provided keywords and content summary to select the best primary keywords and supporting keywords for this page’s meta tags.
+            Here is the keyword : \"${keywords}\"
+`;
+        }
+        $("#result").val(gen);
+        
+
+        // console.log(pageURL);
+        // console.log(selectedValue);
+        // console.log(ImagesURL);
+        
+    });
+
+
+
+
+    function myFunction() {
+        // Get the text field
+        var copyText = document.getElementById("result");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // Alert the copied text
+        
+    }
+  </script>
+</body>
+
+</htm

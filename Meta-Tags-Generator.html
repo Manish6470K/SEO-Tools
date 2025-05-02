@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meta Tag Prompt generator</title>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.min.css" rel="stylesheet" />
+    <style>
+        *{
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="row p-3">
+    <div class="col col-6 shadow-5-strong m-4">
+        <div class="container">
+            <!-- Page Title  -->
+            <div class="row py-4 text-center">
+                <div class="col">
+                    <h2>ChatGPT Alt Text Prompt Generator
+                        <hr>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form  -->
+        <div class="container">
+            <form id="promptForm">
+            <div class="row">
+                    <div class="col">
+                        <!-- Text input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="text" id="PageURL" class="form-control" />
+                            <label class="form-label" for="PageURL">Page URL</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Text input -->
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" value="new" />
+                            <label class="btn btn-secondary" for="option1" data-mdb-ripple-init>New Prompt</label>
+                        
+                            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="followUp" checked />
+                            <label class="btn btn-secondary" for="option2" data-mdb-ripple-init>Follow Up Prompt</label>
+                        
+                        </div>
+                    </div>
+            </div>
+
+                
+
+                <!-- Message input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <textarea class="form-control" id="ImagesURL" rows="4"></textarea>
+                    <label class="form-label" for="keywords" >Keywords</label>
+                </div>
+
+                <!-- Message input -->
+                <div class="form-outline" data-mdb-input-init>
+                    <textarea type="text" id="pageContent" class="form-control" data-mdb-showcounter="true" maxlength="99999" rows="8"></textarea>
+                    <label class="form-label" for="form16">Website Content</label>
+                    <div class="form-helper"></div>
+                </div>
+    <br><br>
+
+                <!-- Submit button -->
+                <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4" id="Generate">Generate</button>
+            </form>
+        </div>
+        
+    </div>
+    <div class="col col-5 border-start shadow-5-strong m-2">
+
+        <div class="container">
+            <!-- Page Title  -->
+            <div class="row py-4 text-center">
+                <div class="col">
+                    <h2>Result
+                        <hr>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Message input -->
+            <div class="form-outline" data-mdb-input-init>
+                <textarea type="text" id="result" class="form-control" data-mdb-showcounter="true" maxlength="99999" rows="14"></textarea>
+                <label class="form-label" for="form16">Your Prompt</label>
+                <div class="form-helper"></div>
+            </div>
+            <br>
+            <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4 w-50" id="copy" onclick="myFunction()">Copy <span id="copyDone"></span></button>
+        </div>
+    </div>
+
+
+
+    <!-- MDB -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script>
+
+        <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+
+  <script> 
+    $("#Generate").click(function(){
+        var pageURL = $("#PageURL").val();
+        // var option = $("input[name=options]").val();
+        var selectedValue = $('input[name="options"]:checked').val();
+        var keywords = $("#keywords").val();
+        var pageContent = $("#pageContent").val();
+        var gen = 0;
+        if(selectedValue=="new"){
+            gen = `I need your help generating SEO-optimized meta tags for my website, including a meta title, meta description, and a keyword list. Here’s what I’m looking for:
+
+            Website URL: \"${pageURL}\"
+            Website Content Summary:\"${pageContent}\"
+            Keywords: I’ll provide a full list of keywords for you to analyze. Use your judgment to identify primary keywords (the most relevant terms) and supporting keywords (secondary terms that add value).
+            Instructions:
+            Here is the keywords : \" ${keywords} \"
+            Based on the information provided, please generate:
+
+            Meta Title:
+
+            Limit the title to 50-60 characters, including the focus keyword naturally.
+            Identify and incorporate 1-2 primary keywords in a way that’s both SEO-friendly and appealing to users.
+            Ensure the title is unique and tailored to the site’s offerings, with language that encourages clicks.
+            Meta Description:
+
+            Write a concise, engaging description within 150-160 characters.
+            Integrate the focus keyword and a balanced selection of primary and supporting keywords in a natural way.
+            Clearly communicate the site’s value to visitors, using language that encourages click-through and reflects the website’s unique offerings.
+            Avoid redundant phrases for smooth readability.
+            SEO Keywords List:
+
+            Based on the keyword list provided, select 8-12 terms for the final keywords list.
+            Include the focus keyword and other keywords that capture the main content themes and user search intent.
+            Avoid redundant terms and prioritize variety and relevance.
+            Additional Requirements:
+            Focus Keyword: Ensure the focus keyword is present across the meta title, description, and keywords list.
+            SEO Best Practices: Adhere to SEO best practices, using natural language and avoiding any repetitive wording across the title, description, and keywords.
+            Clarity and Engagement: The title and description should be engaging and accurately represent the website’s content, targeting user intent effectively.
+            Output Format:
+            Please present the output in a tabular format with the following structure:
+
+            Element	Content
+            Meta Title	[Generated Meta Title]
+            Meta Description	[Generated Meta Description]
+            Focus Keyword	[Focus Keyword]
+            Keywords	[List of 8-12 keywords, including primary & secondary]
+            Generate each of these elements in a way that is concise, attractive, and aligned with the website’s content and target audience.`;
+        }
+        else {
+            gen = `I’d like to create SEO-optimized meta tags for additional pages on my website, using the same guidelines as before. Here’s the new information for the page:
+
+            Page URL: \"${pageURL}\"
+            Page Content Summary: \"${pageContent}\"
+            Keywords: Here’s the full list of relevant keywords for this page: [Provide updated list of keywords here]
+            Please analyze the provided keywords and content summary to select the best primary keywords and supporting keywords for this page’s meta tags.
+            Here is the keyword : \"${keywords}\"
+
+            Requirements:
+            Based on the provided information, generate:
+
+            Meta Title:
+
+            Between 50-60 characters, including the focus keyword.
+            Incorporate 1-2 primary keywords naturally and make the title engaging and relevant to this specific page’s content.
+            Ensure the title is distinct yet consistent with the overall site’s tone.
+            Meta Description:
+
+            A concise, action-oriented description within 150-160 characters.
+            Use the focus keyword and 1-2 additional keywords, highlighting this page’s unique offerings.
+            Maintain readability, encouraging click-throughs by clearly communicating the page’s value.
+            Keywords List:
+
+            From the keywords provided, select 8-12 terms that best represent this page’s content.
+            Include the focus keyword and a selection of relevant primary and supporting keywords.
+            Avoid redundant or overly similar terms.
+            Output Format:
+            As with the previous page, present the output in a tabular format as follows:
+
+            Element	Content
+            Meta Title	[Generated Meta Title]
+            Meta Description	[Generated Meta Description]
+            Focus Keyword	[Focus Keyword]
+            Keywords	[List of 8-12 keywords, including primary & secondary]
+            Please ensure these meta tags align with the content and target audience of this specific page, following SEO best practices for natural language and readability.`;
+        }
+        $("#result").val(gen);
+        
+
+        // console.log(pageURL);
+        // console.log(selectedValue);
+        // console.log(ImagesURL);
+        
+    });
+
+
+
+
+    function myFunction() {
+        // Get the text field
+        var copyText = document.getElementById("result");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // Alert the copied text
+        
+    }
+  </script>
+</body>
+
+</htm

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Alt Text Prompt generator</title>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="row p-3">
+    <div class="col col-6 shadow-5-strong m-4">
+        <div class="container">
+            <!-- Page Title  -->
+            <div class="row py-4 text-center">
+                <div class="col">
+                    <h2>ChatGPT Alt Text Prompt Generator
+                        <hr>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form  -->
+        <div class="container">
+            <form id="promptForm">
+            <div class="row">
+                    <div class="col">
+                        <!-- Text input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="text" id="PageURL" class="form-control" />
+                            <label class="form-label" for="PageURL">Page URL</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Text input -->
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" value="new" />
+                            <label class="btn btn-secondary" for="option1" data-mdb-ripple-init>New Prompt</label>
+                        
+                            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="followUp" checked />
+                            <label class="btn btn-secondary" for="option2" data-mdb-ripple-init>Follow Up Prompt</label>
+                        
+                        </div>
+                    </div>
+            </div>
+
+                
+
+                <!-- Message input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <textarea class="form-control" id="ImagesURL" rows="4"></textarea>
+                    <label class="form-label" for="ImagesURL" >Images URL</label>
+                </div>
+
+                <!-- Message input -->
+                <div class="form-outline" data-mdb-input-init>
+                    <textarea type="text" id="pageContent" class="form-control" data-mdb-showcounter="true" maxlength="99999" row="14"></textarea>
+                    <label class="form-label" for="form16">Website Content</label>
+                    <div class="form-helper"></div>
+                </div>
+    <br><br>
+
+                <!-- Submit button -->
+                <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4" id="Generate">Generate</button>
+            </form>
+        </div>
+        <hr>
+    </div>
+    <div class="col col-5 border-start shadow-5-strong m-2">
+
+        <div class="container">
+            <!-- Page Title  -->
+            <div class="row py-4 text-center">
+                <div class="col">
+                    <h2>Result
+                        <hr>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Message input -->
+            <div class="form-outline" data-mdb-input-init>
+                <textarea type="text" id="result" class="form-control" data-mdb-showcounter="true" maxlength="99999" rows="14"></textarea>
+                <label class="form-label" for="form16">Your Prompt</label>
+                <div class="form-helper"></div>
+            </div>
+            <br>
+            <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4 w-50" id="copy" onclick="myFunction()">Copy <span id="copyDone"></span></button>
+        </div>
+    </div>
+
+
+
+    <!-- MDB -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script>
+
+        <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+
+  <script> 
+    $("#Generate").click(function(){
+        var pageURL = $("#PageURL").val();
+        // var option = $("input[name=options]").val();
+        var selectedValue = $('input[name="options"]:checked').val();
+        var ImagesURL = $("#ImagesURL").val();
+        var pageContent = $("#pageContent").val();
+        var gen = 0;
+        if(selectedValue=="new"){
+            gen = `there are the image url \"${ImagesURL}\" and this is the webpage content \"${pageContent}\" and this is the page url \"${pageURL}\" now for this i want suggested image name and alt text where the condition is such that it should contain good keywords which help to grow webpage and the image name format should be such that the words must separate with \"-\" and extension shoulb be there  and for alt text it should be only of 2 or 3 words and it should be capitalise and should be very very related to the webpage and must be in simple english vocab but must be attractive and give me result in tabular format`;
+        }
+        else {
+            gen = `now do the same for these images \"${ImagesURL}\" where the webpage content is \"${pageContent}\" and the url is \"${pageURL}\"`;
+        }
+        $("#result").val(gen);
+        
+
+        // console.log(pageURL);
+        // console.log(selectedValue);
+        // console.log(ImagesURL);
+        
+    });
+
+
+
+
+    function myFunction() {
+        // Get the text field
+        var copyText = document.getElementById("result");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // Alert the copied text
+        
+    }
+  </script>
+</body>
+
+</html>
